@@ -2,6 +2,7 @@
 
 import javax.swing.*;  //importar interfaz grafica 
 import java.awt.*;
+import java.awt.event.*;
 
 public class Cliente {   
     public static void main (String [] args) {
@@ -26,9 +27,32 @@ class ventanacliente extends JFrame {  //La clase hereda de JFrame para poder cr
 
 class Lamina extends JPanel{
     public Lamina(){ //Constructor
-        JTextField cuadrodetexto = new JTextField("Escriba aquí"); //Nos abre un campo para agregar texto
-        add(cuadrodetexto);
-    }
+        JLabel texto= new JLabel("CLIENTE 1"); // instancia para agregar una etiqueta de text
         
-}
+        add(texto); // se añade el texto a la lamina
+        cuadrodetexto = new JTextField(" ", 8); //Nos abre un campo para agregar texto
+        add(cuadrodetexto);
+        
+        boton1 = new JButton("Enviar"); // instancia para crear un boton 
+
+        ObtenerTexto click = new ObtenerTexto(); //instancia que servira para obtener el texto al presionar el boton
+        boton1.addActionListener(click);
+        add(boton1); //se añade el boton a la lamina 
+    }
+
+    private class ObtenerTexto implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println(cuadrodetexto.getText());
+
+        }
+
+    }
+    private JTextField cuadrodetexto;
+    private JButton boton1;
+} 
+
+    
+
+ 
 
