@@ -13,7 +13,6 @@ public class Servidor {
 
 }
 
-
 class ventanaServidor extends JFrame implements Runnable{ //hereda de JFrame para crear la ventana
     public ventanaServidor () {  //Constructor
         setBounds(500,200,300,300); //define ubicacion en x, y , ancho, alto del cuadro
@@ -39,31 +38,35 @@ class ventanaServidor extends JFrame implements Runnable{ //hereda de JFrame par
         public void run() { //Se crea este hilo para que el servidor este a la escucha
 
             try{
+
                 ServerSocket servidor = new ServerSocket(8888) ; //agrega el puerto que se definio en cliente
 
                 while(true){ //la conexion se abre y cierra constantemente
             
                 Socket socket1 = servidor.accept(); // abra el puerto y acepte las conexiones del exterior
                 DataInputStream flujo_entrada = new DataInputStream(socket1.getInputStream()); //flujo de datos que va a usar como medio de transporte
+                String valor_producto= flujo_entrada.readUTF(); // almacena lo que envie el cliente en una variable tipo string
+                areatexto.append("\n" + valor_producto);
+                String peso_producto= flujo_entrada.readUTF(); // almacena lo que envie el cliente en una variable tipo string
+                areatexto.append("\n" + peso_producto);
+                String porcentaje_impuestos= flujo_entrada.readUTF(); // almacena lo que envie el cliente en una variable tipo string
+                areatexto.append("\n" + porcentaje_impuestos);
                 String mensaje_texto= flujo_entrada.readUTF(); // almacena lo que envie el cliente en una variable tipo string
                 areatexto.append("\n" + mensaje_texto);
+                
                 socket1.close();
-                }
 
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+                
 
-            
+                }catch (IOException e) {
+                    e.printStackTrace();
 
-
+                }
+                    
             
-            
-            
-         
 
         }
-    
         private	JTextArea areatexto;  
 
 }
