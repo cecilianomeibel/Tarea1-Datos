@@ -40,13 +40,15 @@ class ventanaServidor extends JFrame implements Runnable{ //hereda de JFrame par
 
             try{
                 ServerSocket servidor = new ServerSocket(8888) ; //agrega el puerto que se definio en cliente
+
+                while(true){ //la conexion se abre y cierra constantemente
             
                 Socket socket1 = servidor.accept(); // abra el puerto y acepte las conexiones del exterior
                 DataInputStream flujo_entrada = new DataInputStream(socket1.getInputStream()); //flujo de datos que va a usar como medio de transporte
                 String mensaje_texto= flujo_entrada.readUTF(); // almacena lo que envie el cliente en una variable tipo string
                 areatexto.append("\n" + mensaje_texto);
                 socket1.close();
-
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();
