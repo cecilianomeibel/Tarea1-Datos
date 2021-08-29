@@ -56,9 +56,18 @@ class ventanaServidor extends JFrame implements Runnable{ //hereda de JFrame par
                 peso_producto= paquete_recibido.getpeso_producto();
                 porcentaje_impuesto= paquete_recibido.getporcetaje_impuestos();
 
-                areatexto.append("\n" + "Valor producto: " + valor_producto + "\n" + "Peso producto: " + peso_producto+ "\n" +"Porcentaje impuesto: " + porcentaje_impuesto);
+                int num1 =Integer.parseInt(valor_producto);
+                int num2 =Integer.parseInt(peso_producto);
+                int num3 =Integer.parseInt(porcentaje_impuesto);
+
+                double monto = (num1*num3/100)+(num2*0.15); 
                 
+
+                System.out.println("El monto calculado es: " + monto);
+                areatexto.append("El monto calculado es: " + monto);
+
                 
+
                 Socket Cliente2 = new Socket("192.168.0.14",9090); //Para conectar con cliente 2
                 ObjectOutputStream paqueteReenvio = new ObjectOutputStream(Cliente2.getOutputStream());
                 paqueteReenvio.writeObject(paquete_recibido); 
