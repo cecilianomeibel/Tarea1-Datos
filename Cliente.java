@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.*; 
@@ -31,7 +32,9 @@ class ventanacliente extends JFrame {  //La clase hereda de JFrame para poder cr
     }
 }
 
-class Lamina extends JPanel{
+class Lamina extends JPanel implements Runnable{
+    
+
     public Lamina(){ //Constructor
         
 
@@ -56,6 +59,9 @@ class Lamina extends JPanel{
         ObtenerTexto click = new ObtenerTexto(); //instancia que servira para obtener el texto al presionar el boton
         boton1.addActionListener(click);
         add(boton1); //se añade el boton a la lamina 
+
+        Thread hilo = new Thread(this);
+        hilo.start();
     }
 
     private class ObtenerTexto implements ActionListener{
@@ -92,6 +98,32 @@ class Lamina extends JPanel{
     private JTextField valor_producto,peso_producto , porcentaje_impuestos;
     private JTextArea chat;
     private JButton boton1;
+    
+    
+    @Override
+    public void run() { //Aplicacion debe estar a al escucha de Cliente2
+        try{
+            ServerSocket servidor = new ServerSocket(9090);
+            Socket cliente;
+
+            Envio paqueteRecibido;
+
+            while(true){
+                cliente =servidor.accept();
+                ObjectInputStream flujoentrada = new ObjectInputStream(cliente.getInputStream());
+                paqueteRecibido = (Envio) flujoentrada.readObject();
+                chat.append("\n" + paqueteRecibido.getvalor_producto()+ ": " + paqueteRecibido.getpeso_producto()+ ": " + paqueteRecibido.getporcetaje_impuestos()+ ": ");
+            }
+
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        
+
+        }
+        
+        
+    }
 } 
 
     class Envio implements Serializable{ 
