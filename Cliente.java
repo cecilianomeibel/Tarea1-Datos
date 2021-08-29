@@ -3,6 +3,8 @@
 import javax.swing.*;  //importar interfaz grafica 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.net.*; 
 
 public class Cliente {   
     public static void main (String [] args) {
@@ -43,7 +45,17 @@ class Lamina extends JPanel{
     private class ObtenerTexto implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println(cuadrodetexto.getText());
+           // System.out.println(cuadrodetexto.getText());
+           try {
+            Socket socket1 = new Socket ("192.168.0.15" , 8888); //coloca como parametros direccion ip y puerto
+        } catch (UnknownHostException e1) {
+            
+            e1.printStackTrace();
+        } catch (IOException e1) {  
+    
+            e1.printStackTrace();  // seguimiento de errores
+            System.out.println(e1.getMessage());
+        } 
 
         }
 
