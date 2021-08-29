@@ -3,6 +3,8 @@
 import javax.swing.*;  //importar interfaz grafica 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.DataOutput;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*; 
 
@@ -48,6 +50,15 @@ class Lamina extends JPanel{
            // System.out.println(cuadrodetexto.getText());
            try {
             Socket socket1 = new Socket ("192.168.0.15" , 8888); //coloca como parametros direccion ip y puerto
+           
+            //Crear flujo de datos de salida
+            DataOutputStream flujo_salida = new DataOutputStream(socket1.getOutputStream());
+            //Con la linea anterior se especifica que el flujo de datos de salida del cliente al servidor se va hacer a traves del socket1
+            flujo_salida.writeUTF(cuadrodetexto.getText()); //Escribe en el flujo de salida lo que hay en el cuadro de texto
+            flujo_salida.close(); 
+
+
+
         } catch (UnknownHostException e1) {
             
             e1.printStackTrace();
