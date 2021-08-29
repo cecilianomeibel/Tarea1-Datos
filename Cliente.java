@@ -6,6 +6,8 @@ import java.awt.event.*;
 import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.*; 
 
 public class Cliente {   
@@ -69,12 +71,9 @@ class Lamina extends JPanel{
 
            
             //Crear flujo de datos de salida
-            DataOutputStream flujo_salida = new DataOutputStream(socket1.getOutputStream());
-            //Con la linea anterior se especifica que el flujo de datos de salida del cliente al servidor se va hacer a traves del socket1
-            flujo_salida.writeUTF(valor_producto.getText()); //Escribe en el flujo de salida lo que hay en el cuadro de texto
-            flujo_salida.writeUTF(peso_producto.getText());
-            flujo_salida.writeUTF(porcentaje_impuestos.getText());
-            flujo_salida.close(); 
+            ObjectOutputStream paquete_datos = new ObjectOutputStream(socket1.getOutputStream());
+            paquete_datos.writeObject(datos);
+            socket1.close();
 
 
 
@@ -95,8 +94,10 @@ class Lamina extends JPanel{
     private JButton boton1;
 } 
 
-    class Envio{
+    class Envio implements Serializable{ 
+
         private String valor_producto, peso_producto , porcentaje_impuestos;
+
         public String getvalor_producto() {
             return valor_producto;
         }
