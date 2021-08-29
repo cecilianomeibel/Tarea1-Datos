@@ -41,25 +41,29 @@ class ventanaServidor extends JFrame implements Runnable{ //hereda de JFrame par
 
                 ServerSocket servidor = new ServerSocket(8888) ; //agrega el puerto que se definio en cliente
 
+                String valor_producto , peso_producto , porcentaje_impuesto;
+                Envio paquete_recibido;
+
                 while(true){ //la conexion se abre y cierra constantemente
             
                 Socket socket1 = servidor.accept(); // abra el puerto y acepte las conexiones del exterior
-                DataInputStream flujo_entrada = new DataInputStream(socket1.getInputStream()); //flujo de datos que va a usar como medio de transporte
-                String valor_producto= flujo_entrada.readUTF(); // almacena lo que envie el cliente en una variable tipo string
-                areatexto.append("\n" + valor_producto);
-                String peso_producto= flujo_entrada.readUTF(); // almacena lo que envie el cliente en una variable tipo string
-                areatexto.append("\n" + peso_producto);
-                String porcentaje_impuestos= flujo_entrada.readUTF(); // almacena lo que envie el cliente en una variable tipo string
-                areatexto.append("\n" + porcentaje_impuestos);
-                String mensaje_texto= flujo_entrada.readUTF(); // almacena lo que envie el cliente en una variable tipo string
-                areatexto.append("\n" + mensaje_texto);
                 
+                //Flujo de datos de entrada
+                ObjectInputStream paquete_datos = new ObjectInputStream(socket1.getInputStream());
+                paquete_recibido= (Envio) paquete_datos.readObject(); //lea el flujo de datos y lo que ahi se encuentre lo almacene en paquete recibido
+                
+                valor_producto= paquete_recibido.getvalor_producto();
+                peso_producto= paquete_recibido.getpeso_producto();
+                porcentaje_impuesto= paquete_recibido.getporcetaje_impuestos();
+
+                areatexto.append("\n" + "Valor producto: " + valor_producto + "\n" + "Peso producto: " + peso_producto+ "\n" +"Porcentaje impuesto: " + porcentaje_impuesto);
+
                 socket1.close();
 
             }
                 
 
-                }catch (IOException e) {
+                }catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
 
                 }
