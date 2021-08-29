@@ -31,14 +31,19 @@ class ventanacliente extends JFrame {  //La clase hereda de JFrame para poder cr
 
 class Lamina extends JPanel{
     public Lamina(){ //Constructor
+        nick = new JTextField(5);
+        add(nick);
+
         JLabel texto= new JLabel("CLIENTE 1"); // instancia para agregar una etiqueta de text
         
         add(texto); // se añade el texto a la lamina
-        cuadrodetexto = new JTextField(" ", 8); //Nos abre un campo para agregar texto
+        cuadrodetexto = new JTextField(10); //Nos abre un campo para agregar texto
         add(cuadrodetexto);
+        chat = new JTextArea(12,20); //anota las coordenadas donde lo va a colocar
+        add(chat);
         
         boton1 = new JButton("Enviar"); // instancia para crear un boton 
-
+        
         ObtenerTexto click = new ObtenerTexto(); //instancia que servira para obtener el texto al presionar el boton
         boton1.addActionListener(click);
         add(boton1); //se añade el boton a la lamina 
@@ -71,7 +76,8 @@ class Lamina extends JPanel{
         }
 
     }
-    private JTextField cuadrodetexto;
+    private JTextField cuadrodetexto, nick;
+    private JTextArea chat;
     private JButton boton1;
 } 
 
