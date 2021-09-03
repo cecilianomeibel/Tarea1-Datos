@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Cliente2",
+            "request": "launch",
+            "mainClass": "Cliente2",
+            "projectName": "Tarea1-Datos_ca2909d8"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
