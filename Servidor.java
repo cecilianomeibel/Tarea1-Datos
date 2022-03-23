@@ -38,7 +38,7 @@ class ventanaServidor extends JFrame implements Runnable{ //hereda de JFrame par
 
             try{
 
-                ServerSocket servidor = new ServerSocket(8888) ; //agrega el puerto que se definio en cliente
+                ServerSocket servidor = new ServerSocket(9090) ; //agrega el puerto que se definio en cliente
 
                 String valor_producto , peso_producto , porcentaje_impuesto;
                 Envio paquete_recibido;
@@ -67,7 +67,7 @@ class ventanaServidor extends JFrame implements Runnable{ //hereda de JFrame par
 
                 
 
-                Socket Cliente2 = new Socket("192.168.0.14",9090); //Para conectar con cliente 2
+                Socket Cliente2 = new Socket("local host" , 4444); //Para conectar con cliente 2
                 ObjectOutputStream paqueteReenvio = new ObjectOutputStream(Cliente2.getOutputStream());
                 paqueteReenvio.writeObject(paquete_recibido); 
                 
