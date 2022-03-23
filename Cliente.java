@@ -69,7 +69,7 @@ class Lamina extends JPanel implements Runnable{
         public void actionPerformed(ActionEvent e) {
            
            try {
-            Socket socket1 = new Socket ("192.168.0.15" , 8888); //coloca como parametros direccion ip y puerto
+            Socket socket1 = new Socket ("local host" , 4444); //coloca como parametros direccion ip y puerto
             Envio datos = new Envio(); //encapsular los datos
             datos.SetValor_producto(valor_producto.getText()); //obtener con lo que agrega en el cuadro de texto
             datos.SetPeso_producto(peso_producto.getText());
